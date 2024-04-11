@@ -8,3 +8,15 @@ export interface createVendorInput {
   email: string;
   password: string;
 }
+
+export interface vendorLoginInput {
+  email: string;
+  password: string;
+}
+
+export interface jwt_payload {
+  _id: string;
+  email: string;
+  name: string;
+  foodType: [string];
+}
