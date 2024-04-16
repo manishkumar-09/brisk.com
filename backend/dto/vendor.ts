@@ -14,7 +14,16 @@ export interface vendorLoginInput {
   password: string;
 }
 
-export interface jwt_payload {
+export interface editVendorDetails {
+  name: string;
+  address: string;
+  phone: string;
+  foodType: [string];
+}
+export interface editVendorService {
+  serviceAvailable: boolean;
+}
+export interface vendorPayload {
   _id: string;
   email: string;
   name: string;

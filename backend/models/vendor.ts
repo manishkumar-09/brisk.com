@@ -9,10 +9,10 @@ type vendorDoc = Document & {
   phone: string;
   email: string;
   password: string;
-  // foods: any;
   rating: number;
   serviceAvailable: boolean;
   coverImages: [string];
+  foods: any;
 };
 const vendorSchema = new Schema(
   {
@@ -24,7 +24,7 @@ const vendorSchema = new Schema(
     phone: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    // foods: [{ type: mongoose.Schema.Types.ObjectId, ref: "food" }],
+    foods: [{ type: mongoose.Schema.Types.ObjectId, ref: "Food" }],
     rating: { type: Number },
     serviceAvailable: { type: Boolean },
     coverImages: [{ type: String }],

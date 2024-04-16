@@ -5,9 +5,12 @@ const app = express();
 import commonRoute from "./routes";
 import { db } from "./config/db";
 const PORT = process.env.PORT;
+import path from "path";
+
 //middlewares
 app.use(express.json());
 app.use(commonRoute);
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.get("/", (req, res) => {
   res.send("working");

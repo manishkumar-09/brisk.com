@@ -29,6 +29,7 @@ export const createVendor = async (req: Request, res: Response) => {
       rating: 0,
       serviceAvailable: true,
       coverImages: ["image"],
+      foods: [],
     });
 
     return res.status(201).json({
@@ -70,7 +71,7 @@ export const getVendorsById = async (req: Request, res: Response) => {
         .status(200)
         .json({ success: true, message: "Vendor data", vendor: vendor });
     }
-    return res.status(404).json({ msg: "Datg Not Found" });
+    return res.status(404).json({ msg: "Data Not Found" });
   } catch (err) {
     res
       .status(500)

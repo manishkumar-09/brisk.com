@@ -6,6 +6,8 @@ import {
 } from "../dto/vendor";
 import { Vendor } from "../models/vendor";
 import { comparePassword, generateToken } from "../utils/passwordHashing";
+import { createFoodInput } from "../dto/food";
+import { Food } from "../models/food";
 
 const vendorLogin = async (req: Request, res: Response) => {
   try {
@@ -100,4 +102,63 @@ const editVendorService = async (req: Request, res: Response) => {
   }
 };
 
-export { vendorLogin, vendorProfile, editVendorDetails, editVendorService };
+// food controllers funtions
+const addFood = async (req: Request, res: Response) => {
+  try {
+    const { name, description, category, foodType, readyTime, price } = <
+      createFoodInput
+    >req.body;
+
+    const vendor = await Vendor.findById({ _id: req.user._id });
+
+    if (vendor) {
+      const files = req.files as Express.Multer.File[];
+      const images = files?.map((file) => {
+        file.filename;
+      });
+
+      const createFood = await Food.create({
+        vendorId: vendor._id,
+        name,
+        description,
+        images,
+        category,
+        foodType,
+        readyTime,
+        price,
+        rating: 0,
+      });
+      vendor.foods.push(createFood);
+      const result = await vendor.save();
+
+      return res.status(201).json({ message: "food added", food: result });
+    }
+    return res
+      .status(400)
+      .json({ message: "Something is wrong in adding food" });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, msessage: `Internal sever error ${err}` });
+  }
+};
+
+const getFoods = async (req: Request, res: Response) => {
+  try {
+    const foodData = await Food.find();
+    res.status(200).json(foodData);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, msessage: `Internal sever error ${err}` });
+  }
+};
+
+export {
+  vendorLogin,
+  vendorProfile,
+  editVendorDetails,
+  editVendorService,
+  addFood,
+  getFoods,
+};

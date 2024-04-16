@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { jwt_payload } from "../dto/vendor";
+import { vendorPayload } from "../dto/vendor";
 // import dotenv from "dotenv";
 // dotenv.config();
-const JWT_SECRET = "MISSISIPI";
+const JWT_SECRET = "MISSISSIPI";
 
 const hashedPassword = async (password: string): Promise<string> => {
   const salt = await bcrypt.genSalt(10);
@@ -19,7 +19,7 @@ const comparePassword = async (
   return validation;
 };
 
-const generateToken = async (payload: jwt_payload) => {
+const generateToken = async (payload: vendorPayload) => {
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "10h" });
   return token;
 };
